@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financial Tools — Free Calculators & Decision Aids</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a18;
+    --ink-muted: #6b6b65;
+    --ink-faint: #a8a89f;
+    --surface: #fafaf7;
+    --surface-card: #ffffff;
+    --border: #e8e8e2;
+    --accent: #1a472a;
+    --accent-light: #e8f0ea;
+    --accent-mid: #2d6a42;
+    --amber: #92400e;
+    --amber-light: #fef3c7;
+    --teal: #0f4c5c;
+    --teal-light: #e0f4f8;
+    --plum: #4a1d6e;
+    --plum-light: #f3eefa;
+    --coral: #7c2d12;
+    --coral-light: #fff0eb;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    padding: 4rem 2rem 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .header-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-mid);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .header-eyebrow::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--accent-mid);
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+    max-width: 680px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent-mid);
+  }
+
+  .header-sub {
+    font-size: 1.05rem;
+    color: var(--ink-muted);
+    max-width: 520px;
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ── GRID ── */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 1.5rem;
+  }
+
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 4rem;
+  }
+
+  .tool-card {
+    background: var(--surface-card);
+    padding: 1.75rem 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    transition: background 0.15s ease;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .tool-card:hover {
+    background: #f5f9f6;
+  }
+
+  .tool-card:hover .card-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .card-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 0.25rem;
+    width: fit-content;
+  }
+
+  .tag-trading  { background: var(--accent-light);  color: var(--accent);  }
+  .tag-income   { background: var(--amber-light);   color: var(--amber);   }
+  .tag-portfolio{ background: var(--teal-light);    color: var(--teal);    }
+  .tag-planning { background: var(--plum-light);    color: var(--plum);    }
+  .tag-risk     { background: var(--coral-light);   color: var(--coral);   }
+
+  .card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+
+  .card-desc {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    line-height: 1.6;
+    font-weight: 300;
+    flex: 1;
+  }
+
+  .card-arrow {
+    font-size: 14px;
+    color: var(--accent-mid);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    margin-top: 0.5rem;
+    display: inline-block;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  footer a { color: var(--ink-muted); text-decoration: underline; text-underline-offset: 3px; }
+
+  @media (max-width: 600px) {
+    header { padding: 2.5rem 1.25rem 2rem; }
+    main { padding: 2rem 1.25rem 4rem; }
+    .tools-grid { border-radius: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-eyebrow">Free tools</div>
+  <h1>Calculators &amp; decision aids for <em>serious</em> investors</h1>
+  <p class="header-sub">A collection of practical tools built for spread betting, income planning, and portfolio decisions. No sign-up. No ads. Open source.</p>
+</header>
+
+<div class="divider"></div>
+
+<main>
+
+  <p class="section-label">Trading &amp; spread betting</p>
+  <div class="tools-grid">
+
+    <a class="tool-card" href="tools/spread-bet-sizer.html">
+      <span class="card-tag tag-trading">Trading</span>
+      <span class="card-title">Spread Bet Position Sizer</span>
+      <span class="card-desc">Calculate the right stake per point based on account size, risk tolerance, and stop distance. Never over-lever again.</span>
+      <span class="card-arrow">→ Open tool</span>
+    </a>
+
+    <a class="tool-card" href="tools/risk-reward.html">
+      <span class="card-tag tag-risk">Risk</span>
+      <span class="card-title">Risk / Reward Calculator</span>
+      <span class="card-desc">Map entry, stop, and target to visualise your R-multiple before you place the trade.</span>
+      <span class="card-arrow">→ Open tool</span>
+    </a>
+
+    <a class="tool-card" href="tools/drawdown-recovery.html">
+      <span class="card-tag tag-risk">Risk</span>
+      <span class="card-title">Drawdown Recovery Calculator</span>
+      <span class="card-desc">See exactly how much you need to gain to recover from a loss — the maths that keeps risk management honest.</span>
+      <span class="card-arrow">→ Open tool</span>
+    </a>
+
+  </div>
+
+  <p class="section-label">Income &amp; lifetime planning</p>
+  <div class="tools-grid">
+
+    <a class="tool-card" href="tools/lifetime-income.html">
+      <span class="card-tag tag-income">Income</span>
+      <span class="card-title">Lifetime Income Calculator</span>
+      <span class="card-desc">Project total earned income over a career, adjusted for inflation and salary growth. Puts long-term saving in context.</span>
+      <span class="card-arrow">→ Open tool</span>
+    </a>
+
+    <a class="tool-card" href="tools/safe-withdrawal.html">
+      <span class="card-tag tag-income">Income</span>
+      <span class="card-title">Safe Withdrawal Rate Tool</span>
+      <span class="card-desc">Model how long a portfolio lasts under different withdrawal rates, returns, and time horizons.</span>
+      <span class="card-arrow">→ Open tool</span>
+    </a>
+
+    <a class="tool-card" href="tools/pension-projector.html">
+      <span class="card-tag tag-planning">Planning</span>
+      <span class="card-title">Pension Pot Projector</span>
+      <span class="card-desc">Estimate your pension at retirement based on current pot, contributions, and expected returns.</span>
+      <span class="card-arrow">→ Open tool</span>
+    </a>
+
+  </div>
+
+  <p class="section-label">Portfolio decisions</p>
+  <div class="tools-grid">
+
+    <a class="tool-card" href="tools/portfolio-decision-aid.html">
+      <span class="card-tag tag-portfolio">Portfolio</span>
+      <span class="card-title">Portfolio Decision Aid</span>
+      <span class="card-desc">A structured framework for buy, hold, or sell decisions — removing emotion and applying consistent logic.</span>
+      <span class="card-arrow">→ Open tool</span>
+    </a>
+
+    <a class="tool-card" href="tools/asset-allocation.html">
+      <span class="card-tag tag-portfolio">Portfolio</span>
+      <span class="card-title">Asset Allocation Visualiser</span>
+      <span class="card-desc">Enter your holdings and see your true allocation at a glance — across asset class, geography, and sector.</span>
+      <span class="card-arrow">→ Open tool</span>
+    </a>
+
+    <a class="tool-card" href="tools/rebalancing.html">
+      <span class="card-tag tag-portfolio">Portfolio</span>
+      <span class="card-title">Rebalancing Calculator</span>
+      <span class="card-desc">Find out exactly what to buy and sell to return to your target allocation without unnecessary trading.</span>
+      <span class="card-arrow">→ Open tool</span>
+    </a>
+
+  </div>
+
+</main>
+
+<footer>
+  <p>All tools run entirely in your browser. No data is collected or stored. &nbsp;·&nbsp; <a href="https://github.com/yourusername/financial-tools">View on GitHub</a></p>
+</footer>
+
+</body>
+</html>
